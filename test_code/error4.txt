@@ -1,0 +1,6 @@
+int a = 'b';
+int b = '&';
+int c = '\'';
+int d = '\n';
+int e = '\t';
+int error = '';

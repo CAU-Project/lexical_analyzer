@@ -1,0 +1,87 @@
+Type                 |	 int
+Id                   |	 a
+Assign               |	 
+Integer              |	 0
+ArithmeticOperator   |	 +
+Integer              |	 1
+SCOLON               |	 
+Type                 |	 char
+Id                   |	 b
+Assign               |	 
+Integer              |	 1
+ArithmeticOperator   |	 /
+Integer              |	 2
+SCOLON               |	 
+Type                 |	 boolean
+Id                   |	 c
+Assign               |	 
+Integer              |	 22
+ArithmeticOperator   |	 *
+Integer              |	 3
+SCOLON               |	 
+Type                 |	 string
+Id                   |	 e
+Assign               |	 
+Integer              |	 -5
+ArithmeticOperator   |	 -
+Integer              |	 -3
+SCOLON               |	 
+If                   |	 
+LPAREN               |	 
+Bool                 |	 true
+RPAREN               |	 
+LBRACE               |	 
+Id                   |	 f
+Assign               |	 
+Integer              |	 7
+ArithmeticOperator   |	 -
+Integer              |	 -8
+SCOLON               |	 
+Return               |	 
+SCOLON               |	 
+RBRACE               |	 
+Else                 |	 
+LBRACE               |	 
+While                |	 
+LPAREN               |	 
+Id                   |	 a
+Compare              |	 >
+Integer              |	 -5
+RPAREN               |	 
+LBRACE               |	 
+RBRACE               |	 
+RBRACE               |	 
+Type                 |	 int
+Id                   |	 k
+Assign               |	 
+Integer              |	 7
+ArithmeticOperator   |	 -
+Integer              |	 -8
+LPAREN               |	 
+Integer              |	 9
+RPAREN               |	 
+ArithmeticOperator   |	 -
+LPAREN               |	 
+ArithmeticOperator   |	 -
+Integer              |	 5
+RPAREN               |	 
+Char                 |	 'a'
+Char                 |	 '\''
+Char                 |	 '\n'
+Char                 |	 ' '
+Char                 |	 '&'
+String               |	 "#@(d2sm^,z."
+Type                 |	 int
+Id                   |	 test
+Assign               |	 
+Integer              |	 3
+ArithmeticOperator   |	 -
+Integer              |	 5
+SCOLON               |	 
+Type                 |	 int
+Id                   |	 test2
+Assign               |	 
+Integer              |	 3
+ArithmeticOperator   |	 -
+Integer              |	 -5
+SCOLON               |	 

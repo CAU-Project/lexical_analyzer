@@ -1,0 +1,104 @@
+Id                   |	 opClick
+Assign               |	 
+Bool                 |	 true
+SCOLON               |	 
+If                   |	 
+LPAREN               |	 
+Id                   |	 disp
+Compare              |	 !=
+Id                   |	 null
+RPAREN               |	 
+LBRACE               |	 
+Id                   |	 disp
+ArithmeticOperator   |	 +
+Assign               |	 
+Id                   |	 sb_toString
+LPAREN               |	 
+RPAREN               |	 
+SCOLON               |	 
+RBRACE               |	 
+Else                 |	 
+LBRACE               |	 
+Id                   |	 disp
+Assign               |	 
+Id                   |	 sb_toString
+LPAREN               |	 
+RPAREN               |	 
+SCOLON               |	 
+RBRACE               |	 
+If                   |	 
+LPAREN               |	 
+Id                   |	 op
+Compare              |	 ==
+Integer              |	 0
+RPAREN               |	 
+LBRACE               |	 
+Id                   |	 result
+Assign               |	 
+Id                   |	 Double_ParseDouble
+LPAREN               |	 
+Id                   |	 sb_toString
+LPAREN               |	 
+RPAREN               |	 
+RPAREN               |	 
+SCOLON               |	 
+Id                   |	 op
+Assign               |	 
+Id                   |	 e_getActionCommand
+LPAREN               |	 
+RPAREN               |	 
+SCOLON               |	 
+Id                   |	 disp
+Assign               |	 
+Id                   |	 disp
+ArithmeticOperator   |	 +
+Id                   |	 e_getActionCommand
+LPAREN               |	 
+RPAREN               |	 
+SCOLON               |	 
+Id                   |	 dispL_setText
+LPAREN               |	 
+Id                   |	 disp
+RPAREN               |	 
+SCOLON               |	 
+RBRACE               |	 
+Else                 |	 
+LBRACE               |	 
+If                   |	 
+LPAREN               |	 
+Id                   |	 op
+Compare              |	 >=
+Integer              |	 43
+RPAREN               |	 
+LBRACE               |	 
+Id                   |	 result
+Assign               |	 
+Id                   |	 result
+ArithmeticOperator   |	 -
+Integer              |	 3
+SCOLON               |	 
+RBRACE               |	 
+If                   |	 
+LPAREN               |	 
+Id                   |	 op
+Compare              |	 <=
+Integer              |	 44
+RPAREN               |	 
+LBRACE               |	 
+Id                   |	 result
+Assign               |	 
+Bool                 |	 true
+SCOLON               |	 
+RBRACE               |	 
+If                   |	 
+LPAREN               |	 
+Id                   |	 op
+Compare              |	 ==
+Integer              |	 45
+RPAREN               |	 
+LBRACE               |	 
+Return               |	 
+Bool                 |	 false
+SCOLON               |	 
+RBRACE               |	 
+RBRACE               |	 
