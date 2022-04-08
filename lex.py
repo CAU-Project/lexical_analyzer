@@ -8,7 +8,7 @@ MERGED = Type | Integer | Char | String | Bool | Id | Keyword |
 
 NZeroDigit = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
 Digit =  0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
-Letter = a|b|c|d ...|x|y|z|A|B|C ...|X|Y|Z
+Letter = [a-z,A-Z]
 
 AlphabetC = Letter | Digit | ! | " | # | $ | % | & | ~ | ( | ) | * | + | 
             , | - | . | / | : | ; | < | = | > | ? | @ | [ | } | ] | ^ | _ | ` |
@@ -20,7 +20,8 @@ AlphabetS = Letter | Digit | ! | ~ | # | $ | % | & | ' | ( | ) | * | + |
 Arithmetic = + | - | * | /
 Assign = =
 Compare = < | > | == | != | <= | >=
-
+string = "\""
+print(string)
 Type = int | char | boolean | string
 Integer = 0 | -NZeroDigit(Digit)* | NZeroDigit(Digit)*
 Char = 'AlphabetC'
