@@ -46,16 +46,35 @@ Translate the NFA to DFA in form of Table
 
 # Usage
 
+### Requirements:
+- No requirements about python module
+- My Python : Python 3.5.3
+
+### Usage:
 1. Make Test code in **test_code** Directory which satisfy our Lexical Specification
 2. start lex.py with filename in test_code directory
-
+- I have made some test code in test_code directory
 ```sh
-python3 lex.py test.txt
+$python3 lex.py test.txt
 ```
 
 - If an input program has an error, then error report with Line Number
+```sh
+$python3 lex.py error1.txt
+[!] lexical analyzer for tokenizing simple java code.
+
+Line[2] wrong value after ! - f
+```
 - Otherwise it makes file with a symbol table which stores the information of tokens in **filename_output.txt**
-- I have made some test code in test_code directory
+
+```sh
+$python3 lex.py test.txt
+[!] lexical analyzer for tokenizing simple java code.
+
+[+] Finish Lexical analyzr
+[+] Result Information in test.txt_output.txt
+```
+
 
 
 
