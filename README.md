@@ -10,7 +10,7 @@ Lexical Analyzer for Simple Java code with Python
 # 1. Regular Expression
 
 ```
-MERGED = Type | Integer | Char | String | Bool | Id | Keyword | Operator | SpecialSymbol | WhiteSpace
+MERGED = Type | Integer | Char | Literal | Bool | Id | Keyword | Operator | SpecialSymbol | WhiteSpace
 
 NZeroDigit = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
 Digit =  0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
@@ -34,3 +34,8 @@ Operator = Arithmetic | Assign | Compare
 SpecialSymbol = ; | ( | ) | { | } | [ | ] | ,
 WhiteSpace = [blank] | \t | \n  
 ```
+
+# 2. NFA
+Draw NFA With Regular Expression
+
+![NFA](https://user-images.githubusercontent.com/33647663/162559648-feedacb0-a2de-4776-9fca-70799ec5a5ec.png)
