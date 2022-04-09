@@ -9,7 +9,7 @@ Lexical Analyzer for Simple Java code with Python
 
 # 1. Regular Expression
 
-```
+```re
 MERGED = Type | Integer | Char | Literal | Bool | Id | Keyword | Operator | SpecialSymbol | WhiteSpace
 
 NZeroDigit = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
@@ -39,3 +39,23 @@ WhiteSpace = [blank] | \t | \n
 Draw NFA With Regular Expression
 
 ![NFA](https://user-images.githubusercontent.com/33647663/162559648-feedacb0-a2de-4776-9fca-70799ec5a5ec.png)
+
+# 3. DFA & Table
+Translate the NFA to DFA in form of Table
+
+
+# Usage
+
+1. Make Test code in **test_code** Directory which satisfy our Lexical Specification
+2. start lex.py with filename in test_code directory
+
+```sh
+python3 lex.py test.txt
+```
+
+- If an input program has an error, then error report with Line Number
+- Otherwise it makes file with a symbol table which stores the information of tokens in **filename_output.txt**
+- I have made some test code in test_code directory
+
+
+
