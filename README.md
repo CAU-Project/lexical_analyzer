@@ -1,5 +1,8 @@
 # lexical_analyzer
 Lexical Analyzer for Simple Java code with Python
+미래의 나야. 다 뜯어 고쳐야 한단다.
+1. Transition Table이 필요해
+2. Transition Table을 2차원 배열로 
 
 # Lexical Specification
 
@@ -40,6 +43,9 @@ Draw NFA With Regular Expression
 
 ![NFA](https://user-images.githubusercontent.com/33647663/162559648-feedacb0-a2de-4776-9fca-70799ec5a5ec.png)
 
+![NFA drawio](https://user-images.githubusercontent.com/33647663/162576571-467b6261-00bd-41ba-a764-cc08bdaf675a.png)
+
+
 # 3. DFA & Table
 Translate the NFA to DFA in form of Table
 
@@ -75,7 +81,7 @@ $python3 lex.py test.txt
 [+] Result Information in test.txt_output.txt
 ```
 
-# test.txt
+### test.txt
 ```java
 int a = 0 + 1;
 char b = 1 / 2 ;
@@ -109,7 +115,7 @@ int test2 = 3 - -5;
 
 ```
 
-# Result Information Table
+### Result Information Table
 
 ```
 Type                 |	 int
