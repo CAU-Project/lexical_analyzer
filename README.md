@@ -75,6 +75,40 @@ $python3 lex.py test.txt
 [+] Result Information in test.txt_output.txt
 ```
 
+# test.txt
+```java
+int a = 0 + 1;
+char b = 1 / 2 ;
+boolean c =22 * 3;
+string e = -5 - -3;
+if(true){
+    f = 7 - -8;
+    return;
+}else{
+    while(a > -5){
+
+
+    }
+}
+
+int k = 7 - -8
+(9) - (-5)
+
+'a'
+'\''
+'\n'
+' '
+'&'
+
+
+
+"#@(d2sm^,z."
+
+int test = 3 - 5;
+int test2 = 3 - -5;
+
+```
+
 # Result Information Table
 
 ```
