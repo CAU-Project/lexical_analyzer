@@ -3,29 +3,23 @@ import string
 
 '''
 [Regular Expression]
-MERGED = Type | Integer | Char | String | Bool | Id | Keyword |
-         Operator | SpecialSymbol | WhiteSpace
+MERGED = Type | Integer | Char | Literal | Bool | Id | Keyword | Operator | SpecialSymbol | WhiteSpace
 
 NZeroDigit = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
 Digit =  0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
-Letter = [a-z,A-Z]
+Letter = a | b | c ... | y | z | A | B ... | Y | Z
 
-AlphabetC = Letter | Digit | ! | " | # | $ | % | & | ~ | ( | ) | * | + | 
-            , | - | . | / | : | ; | < | = | > | ? | @ | [ | } | ] | ^ | _ | ` |
-            { | | | \\ | \' | \t | \n | \r
-AlphabetS = Letter | Digit | ! | ~ | # | $ | % | & | ' | ( | ) | * | + | 
-            , | - | . | / | : | ; | < | = | > | ? | @ | [ | } | ] | ^ | _ | ` |
-            { | | | \\ | \" | \t | \n | \r
+Alphabet = Letter | Digit | ! | ' | " | # | $ | % | & | ~ | ( | ) | * | + | , | - | . | / | : | ; | < | = | > | ? | @ | [ | } | ] | ^ | _ | ` | { | | | \t | \n | \r
+
 
 Arithmetic = + | - | * | /
 Assign = =
 Compare = < | > | == | != | <= | >=
-string = "\""
-print(string)
+
 Type = int | char | boolean | string
 Integer = 0 | -NZeroDigit(Digit)* | NZeroDigit(Digit)*
-Char = 'AlphabetC'
-Literal = "(AlphabetS)*"
+Char = 'Alphabet'
+Literal = "(Alphabet)*"
 Bool = true | false
 Id = (_|Letter)(Letter|Digit|_)*
 KeyWord = if | else | while | class | return
@@ -252,7 +246,7 @@ def lexical(text) -> list:
     return token_result
 
 def main() -> None:
-    print("lexical analyzer for tokenizing simple java code.\n")
+    print("[!] lexical analyzer for tokenizing simple java code.\n")
     parser = argparse.ArgumentParser(description='Lexical Analyzer')
     parser.add_argument('input',
                     metavar='filename',
@@ -267,10 +261,19 @@ def main() -> None:
         text = fr.read()
     
     # 어휘 분석 결과 반환
-    token_list = lexical(text)
+    token_list = []
+    try:
+        token_list = lexical(text)
+    except Exception as e:
+        print(e)
+        exit(0)
+    
+    output_filename = args.input + '_output.txt'
+    print("[+] Finish Lexical analyzr")
+    print("[+] Result Information in {}".format(output_filename))
     
 
-    with open(args.input+'_output.txt',"w") as fw:
+    with open(output_filename,"w") as fw:
         
         for token in token_list:
             fw.write('%-20s |\t %s\n'%(token['token'],token['lexeme']))
