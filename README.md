@@ -97,6 +97,10 @@ STRING|"(alphabet)+"|34|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 !ERR|alphabet|37|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 
 ## DFA
+**Note** 
+- Note that if DFA Finished in non-terminal state then it is error.
+- Each Non terminal State has different Error Message. 
+- ex) state 20 : accept single quote, but closed single quote is needed.
 
 ![DFA drawio](https://user-images.githubusercontent.com/33647663/165884138-71a6920e-e8d3-4f68-baa0-81bae79920db.png)
 
