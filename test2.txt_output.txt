@@ -1,104 +1,106 @@
 Id                   |	 opClick
-Assign               |	 
+Assign               |	 =
 Bool                 |	 true
-SCOLON               |	 
-If                   |	 
-LPAREN               |	 
+SCOLON               |	 ;
+Keyword              |	 if
+LPAREN               |	 (
 Id                   |	 disp
 Compare              |	 !=
 Id                   |	 null
-RPAREN               |	 
-LBRACE               |	 
+RPAREN               |	 )
+LBRACE               |	 {
 Id                   |	 disp
 ArithmeticOperator   |	 +
-Assign               |	 
+Assign               |	 =
 Id                   |	 sb_toString
-LPAREN               |	 
-RPAREN               |	 
-SCOLON               |	 
-RBRACE               |	 
-Else                 |	 
-LBRACE               |	 
+LPAREN               |	 (
+RPAREN               |	 )
+SCOLON               |	 ;
+RBRACE               |	 }
+Keyword              |	 else
+LBRACE               |	 {
 Id                   |	 disp
-Assign               |	 
+Assign               |	 =
 Id                   |	 sb_toString
-LPAREN               |	 
-RPAREN               |	 
-SCOLON               |	 
-RBRACE               |	 
-If                   |	 
-LPAREN               |	 
+LPAREN               |	 (
+RPAREN               |	 )
+SCOLON               |	 ;
+RBRACE               |	 }
+Keyword              |	 if
+LPAREN               |	 (
 Id                   |	 op
 Compare              |	 ==
 Integer              |	 0
-RPAREN               |	 
-LBRACE               |	 
+RPAREN               |	 )
+LBRACE               |	 {
 Id                   |	 result
-Assign               |	 
+Assign               |	 =
 Id                   |	 Double_ParseDouble
-LPAREN               |	 
+LPAREN               |	 (
 Id                   |	 sb_toString
-LPAREN               |	 
-RPAREN               |	 
-RPAREN               |	 
-SCOLON               |	 
+LPAREN               |	 (
+RPAREN               |	 )
+RPAREN               |	 )
+SCOLON               |	 ;
 Id                   |	 op
-Assign               |	 
+Assign               |	 =
 Id                   |	 e_getActionCommand
-LPAREN               |	 
-RPAREN               |	 
-SCOLON               |	 
+LPAREN               |	 (
+RPAREN               |	 )
+SCOLON               |	 ;
 Id                   |	 disp
-Assign               |	 
+Assign               |	 =
 Id                   |	 disp
 ArithmeticOperator   |	 +
 Id                   |	 e_getActionCommand
-LPAREN               |	 
-RPAREN               |	 
-SCOLON               |	 
+LPAREN               |	 (
+RPAREN               |	 )
+SCOLON               |	 ;
 Id                   |	 dispL_setText
-LPAREN               |	 
+LPAREN               |	 (
 Id                   |	 disp
-RPAREN               |	 
-SCOLON               |	 
-RBRACE               |	 
-Else                 |	 
-LBRACE               |	 
-If                   |	 
-LPAREN               |	 
+RPAREN               |	 )
+SCOLON               |	 ;
+RBRACE               |	 }
+Keyword              |	 else
+LBRACE               |	 {
+Keyword              |	 if
+LPAREN               |	 (
 Id                   |	 op
-Compare              |	 >=
+Compare              |	 >
+Assign               |	 =
 Integer              |	 43
-RPAREN               |	 
-LBRACE               |	 
+RPAREN               |	 )
+LBRACE               |	 {
 Id                   |	 result
-Assign               |	 
+Assign               |	 =
 Id                   |	 result
 ArithmeticOperator   |	 -
 Integer              |	 3
-SCOLON               |	 
-RBRACE               |	 
-If                   |	 
-LPAREN               |	 
+SCOLON               |	 ;
+RBRACE               |	 }
+Keyword              |	 if
+LPAREN               |	 (
 Id                   |	 op
-Compare              |	 <=
+Compare              |	 <
+Assign               |	 =
 Integer              |	 44
-RPAREN               |	 
-LBRACE               |	 
+RPAREN               |	 )
+LBRACE               |	 {
 Id                   |	 result
-Assign               |	 
+Assign               |	 =
 Bool                 |	 true
-SCOLON               |	 
-RBRACE               |	 
-If                   |	 
-LPAREN               |	 
+SCOLON               |	 ;
+RBRACE               |	 }
+Keyword              |	 if
+LPAREN               |	 (
 Id                   |	 op
 Compare              |	 ==
 Integer              |	 45
-RPAREN               |	 
-LBRACE               |	 
-Return               |	 
+RPAREN               |	 )
+LBRACE               |	 {
+Keyword              |	 return
 Bool                 |	 false
-SCOLON               |	 
-RBRACE               |	 
-RBRACE               |	 
+SCOLON               |	 ;
+RBRACE               |	 }
+RBRACE               |	 }

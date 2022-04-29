@@ -1,5 +1,7 @@
 import argparse
+from sre_parse import WHITESPACE
 import string
+from table import *
 
 '''
 [Regular Expression]
@@ -28,12 +30,11 @@ SpecialSymbol = ; | ( | ) | { | } | [ | ] | ,
 WhiteSpace = [blank] | \t | \n  
 '''
 
-
 # Define
 Digit = [x for x in string.digits] # [0-9]
 NZeroDigit = Digit[1:] # [1-9]
 Letter = [x for x in string.ascii_letters] # [a-z,A-Z]
-Alphabetc = [x for x in string.printable.replace('\'','')]
+Alphabet = [x for x in string.printable.replace('\'','')]
 
 Type = [
     'int',
@@ -56,197 +57,93 @@ Keyword =[
     'return'
 ]
 
+ERR_STATE = [x for x in range(len(State_table)) if State_table[x] == 'ERR']
 
+
+# Functions
+def state_change(state,ch) -> int:
+    if ch == '\0': return -1
+    if ch in NZeroDigit : ch = 'NZDigit'
+    if ch in Letter : ch = 'Letter'
+    ch = str(ch)
+    try:
+        next_state = Transition_table[state][ch]    # check next_state is exist
+    except:
+        try:
+            next_state = Transition_table[state]['Alphabet']    # check Alphabet is possible
+        except:
+            return 0    # set next_state = 0
+    return next_state
+
+def report_error(state,lexeme,line_num) -> None:
+    if(state == 8):
+        raise Exception("Line[{}] Wrong value after ! \nLexeme : {} ".format(line_num,lexeme))
+    if(state == 20):
+        raise Exception("Line[{}] Single quote is not Closed. \nLexeme : {} ".format(line_num,lexeme))
+    if(state == 21):
+        raise Exception("Line[{}] Double quote is not Closed. \nLexeme : {} ".format(line_num,lexeme))
+    if(state == 31):
+        raise Exception("Line[{}] Only 1 symbol is permitted in single quote. \nLexeme : {}".format(line_num,lexeme))
+    if(state == 33):
+        raise Exception("Line[{}] Double quote is not Closed. \nLexeme : {} ".format(line_num,lexeme))
+    if(state == 35):
+        raise Exception("Line[{}] Blank is not permitted in Single quote. \nLexeme : {} ".format(line_num,lexeme))
+    if(state == 36):
+        raise Exception("Line[{}] Integer Start with 0 is not permitted. \nLexeme : {}".format(line_num,lexeme))
+    if(state == 37):
+        raise Exception("Line[{}] Invalid Input. \nLexeme : {} ".format(line_num,lexeme))
+    
 
 def lexical(text) -> list:
     text = text + '\0'
     i=0
     token_result = []
     line_num = 1
+    state = 0
+    lexeme = ''
 
     while True:
         ch = text[i]
-        # White Spaces
-        if(ch == '\0'):
-            break
-        if(ch == ' '):
-            i += 1
-#            print("\nSPACE REMOVED")
-        elif(ch == '\t'):
-            i += 1
-#            print("\nTAB REMOVED")
-        elif(ch == '\n'):
-            i += 1
-            line_num +=1
-#            print("\nNEW LINE REMOVED")
-        # Special Symbols 
-        elif(ch == ';'):
-            i += 1
-            token_result.append({'token' : 'SCOLON' ,'lexeme' : ''})
-        elif(ch == '('):
-            i += 1
-            token_result.append({'token' : 'LPAREN' ,'lexeme' : ''})
-        elif(ch == ')'):
-            i += 1
-            token_result.append({'token' : 'RPAREN' ,'lexeme' : ''})
-        elif(ch == '{'):
-            i += 1
-            token_result.append({'token' : 'LBRACE' ,'lexeme' : ''})
-        elif(ch == '}'):
-            i += 1
-            token_result.append({'token' : 'RBRACE' ,'lexeme' : ''})
-        elif(ch == '['):
-            i += 1
-            token_result.append({'token' : 'LBRAKET' ,'lexeme' : ''})
-        elif(ch == ']'):
-            i += 1
-            token_result.append({'token' : 'RBRAKET' ,'lexeme' : ''})
-        elif(ch == ','):
-            i += 1
-            token_result.append({'token' : 'COMMA' ,'lexeme' : ''})
-        # Operator
-        elif(ch == '+'):
-            i += 1
-            token_result.append({'token' : 'ArithmeticOperator', 'lexeme' : '+'})
-        elif(ch == '-'):
-            # - operator는 정수형 Int와 구분해야 한다.
-            # 마지막 토큰이 operator 혹은 '(' 인 경우 Int 형으로 판단
-            last_token = token_result[-1]
-            if(last_token['token'] in ['ArithmeticOperator','Compare','Assign'] or last_token['lexeme'] == '('):
-                number = '-'
-                i += 1
-                ch = text[i]
-                if(ch in NZeroDigit):
-                    while(ch in Digit):
-                        number = number + ch
-                        i += 1
-                        ch = text[i]
-                    token_result.append({'token' : 'Integer', 'lexeme' : number})
-                else:
-                    raise Exception("Line[{}] wrong value after - : {}".format(line_num,ch))
-            else:
-                i +=1
-                token_result.append({'token' : 'ArithmeticOperator', 'lexeme' : '-'})
-        elif(ch == '*'):
-            i +=1
-            token_result.append({'token' : 'ArithmeticOperator', 'lexeme' : '*'})
-        elif(ch == '/'):
-            i +=1
-            token_result.append({'token' : 'ArithmeticOperator', 'lexeme' : '/'})
-        elif(ch == '='):
-            next = text[i+1]
-            if(next == '='):
-                i += 2
-                token_result.append({'token' : 'Compare', 'lexeme' : '=='})
-            else:
-                i += 1
-                token_result.append({'token' : 'Assign', 'lexeme' : ''})
-        elif(ch == '<'):
-            next = text[i+1]
-            if(next == '='):
-                i += 2
-                token_result.append({'token' : 'Compare','lexeme' : '<='})
-            else:
-                i += 1
-                token_result.append({'token' : 'Compare', 'lexeme' : '<'})
-        elif(ch == '>'):
-            next = text[i+1]
-            if(next == '='):
-                i += 2
-                token_result.append({'token' : 'Compare', 'lexeme' : '>='})
-            else:
-                i += 1
-                token_result.append({'token' : 'Compare', 'lexeme' : '>'})
-        elif(ch == '!'):
-            next = text[i+1]
-            if(next == '='):
-                i += 2
-                token_result.append({'token' : 'Compare', 'lexeme' : '!='})
-            else:
-                    raise Exception("Line[{}] wrong value after ! - {}".format(line_num,next))
-        # Char
-        elif(ch == "'"):
-            character = "'"
-            i += 1
-            ch = text[i]
-            character = character + ch
-            if(ch == "'"):
-                raise Exception("Line[{}] Wrong value after ' - [blank is not permitted]".format(line_num))
-            if(ch == "\\"):
-                i += 1
-                ch = text[i]
-                if(ch in ['t','n','r',"'","\\"]):
-                    character = character + ch
-                else:
-                    raise Exception("Line[{}] Wrong value '\\{} - only{t,n,r,',\\} is permitted after \\".format(line_num,ch))
-            i += 1
-            ch = text[i]
-            if(ch == "'"):
-                character = character + ch
-                i += 1
-                token_result.append({'token' : 'Char', 'lexeme' : character})
-            else:
-                raise Exception("Line[{}] Wrong value in single character {} - only 1 symbol is permitted".format(line_num,character))        
-        # String
-        elif(ch == '"'):
-            String = '"'
-            i += 1
-            ch = text[i]
-            while(ch != '"'):
-                if(ch == '\\'):
-                    String = String + ch
-                    i += 1
-                    ch = text[i]
-                String = String + ch
-                i += 1
-                ch = text[i]
-                if(ch == '\0'):
-                    raise Exception("Line[{}] String is not Closed.".format(line_num))
-            String = String + ch
-            i += 1
-            token_result.append({'token' : 'String', 'lexeme' : String})
-        # Integer
-        elif(ch in Digit):
-            number = ''
-            number = number + ch
-            next = text[i+1]
-            if(ch == '0'):
-                if(next in Digit):
-                    raise Exception("Line[{}] Integer Start with 0 is not permitted - {}".format(line_num,number))
-            else:
-                while(next in Digit):
-                    number = number + next
-                    i += 1
-                    next = text[i+1]
-            i += 1
-            token_result.append({'token' : 'Integer', 'lexeme' : number})
+        next_state = state_change(state,ch) # state change based on current state, input character
 
-        # Id    // Type, Bool, Keyword 체크
-        elif(ch == '_' or ch in  Letter):
-            Identifier = ''
-            Identifier = Identifier + ch
-            next = text[i+1]
-            while(next in Letter or next in Digit or next =='_'):
-                Identifier = Identifier + next
-                i += 1
-                next = text[i+1]
-            i += 1
-            if(Identifier in Type):
-                token_result.append({'token' : 'Type','lexeme' : Identifier})
-            elif(Identifier in Bool):
-                token_result.append({'token' : 'Bool', 'lexeme' : Identifier})
-            elif(Identifier in Keyword):
-                Identifier = Identifier[0].upper() + Identifier[1:]
-                token_result.append({'token' : Identifier,'lexeme' : ''})
-            else:
-                token_result.append({'token' : 'Id','lexeme' : Identifier})
-        # 그 이외에 정의되지 않은 값이 들어오면 종료
+        # next_state == 0 : Search next token
+        # next_state == -1 : EOF
+        if next_state == 0 or next_state == -1:
+            if state in ERR_STATE:
+                report_error(state,lexeme,line_num)
+
+            token = State_table[state]
+
+            if token == 'Id':
+                if lexeme in Type:
+                    token = 'Type'
+                if lexeme in Keyword:
+                    token = 'Keyword'
+                if lexeme in Bool:
+                    token = 'Bool'
+                    
+            if token != 'WHITESPACE':
+                token_result.append({'token' : token ,'lexeme' : lexeme})
+
+            if token == 'WHITESPACE' and lexeme == '\n':
+                line_num += 1
+
+            state = 0
+            lexeme = ''
+
+            if next_state == -1:
+                break
         else:
-            raise Exception("Line[{}] Invalid Input. Check character {}".format(line_num,ch))
+            state = next_state
+            lexeme += ch
+            i += 1
+
     return token_result
+            
+
 
 def main() -> None:
-    print("[!] lexical analyzer for tokenizing simple java code.\n")
+    print("\033[32m[!] lexical analyzer for tokenizing simple java code.\n\033[0m")
     parser = argparse.ArgumentParser(description='Lexical Analyzer')
     parser.add_argument('input',
                     metavar='filename',
@@ -255,32 +152,29 @@ def main() -> None:
 
     args = parser.parse_args()
     filename = 'test_code/' + args.input
-
+    
     text = []
     with open(filename,"r") as fr:
         text = fr.read()
     
-    # 어휘 분석 결과 반환
+    # Store Lexical Anlyzer result
     token_list = []
     try:
         token_list = lexical(text)
     except Exception as e:
-        print(e)
+        print('\033[31m' + str(e) + '\033[0m')
         exit(0)
     
     output_filename = args.input + '_output.txt'
-    print("[+] Finish Lexical analyzr")
-    print("[+] Result Information in {}".format(output_filename))
+    print("\033[32m[+] Finish Lexical analyzr")
+    print("[+] Save Result in {}\033[0m".format(output_filename))
     
 
     with open(output_filename,"w") as fw:
-        
+        fw.write
         for token in token_list:
             fw.write('%-20s |\t %s\n'%(token['token'],token['lexeme']))
 
-#    print(token_list)
-
     
-
 if __name__ == "__main__":
     main()

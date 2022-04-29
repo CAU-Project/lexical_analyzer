@@ -1,87 +1,84 @@
 Type                 |	 int
 Id                   |	 a
-Assign               |	 
+Assign               |	 =
 Integer              |	 0
 ArithmeticOperator   |	 +
 Integer              |	 1
-SCOLON               |	 
+SCOLON               |	 ;
 Type                 |	 char
 Id                   |	 b
-Assign               |	 
+Assign               |	 =
 Integer              |	 1
 ArithmeticOperator   |	 /
 Integer              |	 2
-SCOLON               |	 
+SCOLON               |	 ;
 Type                 |	 boolean
 Id                   |	 c
-Assign               |	 
+Assign               |	 =
 Integer              |	 22
 ArithmeticOperator   |	 *
 Integer              |	 3
-SCOLON               |	 
+SCOLON               |	 ;
 Type                 |	 string
 Id                   |	 e
-Assign               |	 
+Assign               |	 =
 Integer              |	 -5
 ArithmeticOperator   |	 -
 Integer              |	 -3
-SCOLON               |	 
-If                   |	 
-LPAREN               |	 
+SCOLON               |	 ;
+Keyword              |	 if
+LPAREN               |	 (
 Bool                 |	 true
-RPAREN               |	 
-LBRACE               |	 
+RPAREN               |	 )
+LBRACE               |	 {
 Id                   |	 f
-Assign               |	 
+Assign               |	 =
 Integer              |	 7
 ArithmeticOperator   |	 -
 Integer              |	 -8
-SCOLON               |	 
-Return               |	 
-SCOLON               |	 
-RBRACE               |	 
-Else                 |	 
-LBRACE               |	 
-While                |	 
-LPAREN               |	 
+SCOLON               |	 ;
+Keyword              |	 return
+SCOLON               |	 ;
+RBRACE               |	 }
+Keyword              |	 else
+LBRACE               |	 {
+Keyword              |	 while
+LPAREN               |	 (
 Id                   |	 a
 Compare              |	 >
 Integer              |	 -5
-RPAREN               |	 
-LBRACE               |	 
-RBRACE               |	 
-RBRACE               |	 
+RPAREN               |	 )
+LBRACE               |	 {
+RBRACE               |	 }
+RBRACE               |	 }
 Type                 |	 int
 Id                   |	 k
-Assign               |	 
+Assign               |	 =
 Integer              |	 7
 ArithmeticOperator   |	 -
 Integer              |	 -8
-LPAREN               |	 
+LPAREN               |	 (
 Integer              |	 9
-RPAREN               |	 
+RPAREN               |	 )
 ArithmeticOperator   |	 -
-LPAREN               |	 
-ArithmeticOperator   |	 -
-Integer              |	 5
-RPAREN               |	 
+LPAREN               |	 (
+Integer              |	 -5
+RPAREN               |	 )
 Char                 |	 'a'
-Char                 |	 '\''
-Char                 |	 '\n'
 Char                 |	 ' '
 Char                 |	 '&'
 String               |	 "#@(d2sm^,z."
 Type                 |	 int
 Id                   |	 test
-Assign               |	 
+Assign               |	 =
 Integer              |	 3
 ArithmeticOperator   |	 -
 Integer              |	 5
-SCOLON               |	 
+SCOLON               |	 ;
 Type                 |	 int
 Id                   |	 test2
-Assign               |	 
+Assign               |	 =
 Integer              |	 3
 ArithmeticOperator   |	 -
 Integer              |	 -5
-SCOLON               |	 
+SCOLON               |	 ;
