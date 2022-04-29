@@ -201,10 +201,20 @@ $python3 lex.py test.txt
 ### test.txt
 ```java
 int a = 0 + 1;
-char b = 1 / 2 ;
-boolean c =22 * 3;
+char b = 134 / 2 ;
+boolean c = 22 * 3;
 string e = -5 - -3;
-if(true){
+
+a == b;
+a >= b
+a <= b
+a != b
+
+array[3]
+array[-5]
+
+
+if( a < b ){
     f = 7 - -8;
     return;
 }else{
@@ -217,17 +227,25 @@ if(true){
 int k = 7 - -8
 (9) - (-5)
 
-'a'
-' '
-'&'
+'a', '1', ' ', '&'
 
+a = true
+b = false
 
-
+"Hello World" , "My student ID is 20200000"
 "#@(d2sm^,z."
 
-int test = 3 - 5;
-int test2 = 3 - -5;
+i, j, k, abc, ab_123, func1, func_, ___func_bar__
 
+if
+else
+while
+class
+return
+
+if1
+else2
+whilei
 ```
 
 ### test.txt_output.txt (Result Token Info)
@@ -243,7 +261,7 @@ SCOLON               |	 ;
 Type                 |	 char
 Id                   |	 b
 Assign               |	 =
-Integer              |	 1
+Integer              |	 134
 ArithmeticOperator   |	 /
 Integer              |	 2
 SCOLON               |	 ;
@@ -261,9 +279,32 @@ Integer              |	 -5
 ArithmeticOperator   |	 -
 Integer              |	 -3
 SCOLON               |	 ;
+Id                   |	 a
+Compare              |	 ==
+Id                   |	 b
+SCOLON               |	 ;
+Id                   |	 a
+Compare              |	 >=
+Id                   |	 b
+Id                   |	 a
+Compare              |	 <=
+Id                   |	 b
+Id                   |	 a
+Compare              |	 !=
+Id                   |	 b
+Id                   |	 array
+LBRAKET              |	 [
+Integer              |	 3
+RBRAKET              |	 ]
+Id                   |	 array
+LBRAKET              |	 [
+Integer              |	 -5
+RBRAKET              |	 ]
 Keyword              |	 if
 LPAREN               |	 (
-Bool                 |	 true
+Id                   |	 a
+Compare              |	 <
+Id                   |	 b
 RPAREN               |	 )
 LBRACE               |	 {
 Id                   |	 f
@@ -300,24 +341,45 @@ LPAREN               |	 (
 Integer              |	 -5
 RPAREN               |	 )
 Char                 |	 'a'
+COMMA                |	 ,
+Char                 |	 '1'
+COMMA                |	 ,
 Char                 |	 ' '
+COMMA                |	 ,
 Char                 |	 '&'
+Id                   |	 a
+Assign               |	 =
+Bool                 |	 true
+Id                   |	 b
+Assign               |	 =
+Bool                 |	 false
+String               |	 "Hello World"
+COMMA                |	 ,
+String               |	 "My student ID is 20200000"
 String               |	 "#@(d2sm^,z."
-Type                 |	 int
-Id                   |	 test
-Assign               |	 =
-Integer              |	 3
-ArithmeticOperator   |	 -
-Integer              |	 5
-SCOLON               |	 ;
-Type                 |	 int
-Id                   |	 test2
-Assign               |	 =
-Integer              |	 3
-ArithmeticOperator   |	 -
-Integer              |	 -5
-SCOLON               |	 ;
-
+Id                   |	 i
+COMMA                |	 ,
+Id                   |	 j
+COMMA                |	 ,
+Id                   |	 k
+COMMA                |	 ,
+Id                   |	 abc
+COMMA                |	 ,
+Id                   |	 ab_123
+COMMA                |	 ,
+Id                   |	 func1
+COMMA                |	 ,
+Id                   |	 func_
+COMMA                |	 ,
+Id                   |	 ___func_bar__
+Keyword              |	 if
+Keyword              |	 else
+Keyword              |	 while
+Keyword              |	 class
+Keyword              |	 return
+Id                   |	 if1
+Id                   |	 else2
+Id                   |	 whilei
 
 ```
 
