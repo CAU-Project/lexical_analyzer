@@ -50,6 +50,10 @@ Translate the NFA to DFA in form of Table
 
 ## Transition Table
 
+**Note**
+- Keyword, type, and bool were excluded because the table would be too large.
+- They will Recognized as Identifier and will be checked in implementation part
+
 Token|lexeme|state|+|-|*|/|=|<|>|!|(|)|{|}|[|]|;|,|\t|\n|blank|'|"|_|0|NZeroDigit|Letter|Alphabet|$
 --|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--
 |||0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|37|-
@@ -92,6 +96,66 @@ STRING|"(alphabet)+"|34|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 !ERR|alphabet|37|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 
  
+# Implementation
+## Table.py
+Include **Transition_table** and **State_table**
+- **Transition_table** : determine next state based on Current State and input symbol. ex) current state : 0 , input symbol : '+' then next_state will be 1. 
+- **State_table** : Store Information about current state. if current state is 1, then this state is Arithmetic Operator
+
+## lex.py
+### def lexical()
+Read character from file and Tokenizing until EOF.
+
+```python
+def lexical(text):
+    while True:
+        ch = text[i]
+        next_state = state_change(state,ch) 
+
+        if next_state == 0 or next_state == -1:
+            token = State_table[state]
+
+            # save result in token_result array
+            token_result.append({'token' : token ,'lexeme' : lexeme})
+
+            state = 0
+            lexeme = ''
+
+            # EOF
+            if next_state == -1:
+                break
+        else:
+            state = next_state
+            lexeme += ch
+            i += 1
+
+    return token_result
+```
+
+### def report_error()
+if state in error_state, then report error info.
+
+```python
+def report_error(state,lexeme,line_num) -> None:
+    if(state == 8):
+        raise Exception("Line[{}] Wrong value after ! \nLexeme : {} ".format(line_num,lexeme))
+    if(state == 20):
+        raise Exception("Line[{}] Single quote is not Closed. \nLexeme : {} ".format(line_num,lexeme))
+    if(state == 21):
+        raise Exception("Line[{}] Double quote is not Closed. \nLexeme : {} ".format(line_num,lexeme))
+    if(state == 31):
+        raise Exception("Line[{}] Only 1 symbol is permitted in single quote. \nLexeme : {}".format(line_num,lexeme))
+    if(state == 33):
+        raise Exception("Line[{}] Double quote is not Closed. \nLexeme : {} ".format(line_num,lexeme))
+    if(state == 35):
+        raise Exception("Line[{}] Blank is not permitted in Single quote. \nLexeme : {} ".format(line_num,lexeme))
+    if(state == 36):
+        raise Exception("Line[{}] Integer Start with 0 is not permitted. \nLexeme : {}".format(line_num,lexeme))
+    if(state == 37):
+        raise Exception("Line[{}] Invalid Input. \nLexeme : {} ".format(line_num,lexeme))
+    
+```
+
 
 # Usage
 
@@ -112,7 +176,8 @@ $python3 lex.py test.txt
 $python3 lex.py error1.txt
 [!] lexical analyzer for tokenizing simple java code.
 
-Line[2] wrong value after ! - f
+Line[3] Integer Start with 0 is not permitted. 
+Lexeme : 022
 ```
 - Otherwise it makes file with a symbol table which stores the information of tokens in **filename_output.txt**
 
@@ -121,7 +186,7 @@ $python3 lex.py test.txt
 [!] lexical analyzer for tokenizing simple java code.
 
 [+] Finish Lexical analyzr
-[+] Result Information in test.txt_output.txt
+[+] Save Result in test.txt_output.txt
 ```
 
 ### test.txt
@@ -144,8 +209,6 @@ int k = 7 - -8
 (9) - (-5)
 
 'a'
-'\''
-'\n'
 ' '
 '&'
 
@@ -158,96 +221,94 @@ int test2 = 3 - -5;
 
 ```
 
-### Result Information Table
+### Result Token Info
 
 ```
 Type                 |	 int
 Id                   |	 a
-Assign               |	 
+Assign               |	 =
 Integer              |	 0
 ArithmeticOperator   |	 +
 Integer              |	 1
-SCOLON               |	 
+SCOLON               |	 ;
 Type                 |	 char
 Id                   |	 b
-Assign               |	 
+Assign               |	 =
 Integer              |	 1
 ArithmeticOperator   |	 /
 Integer              |	 2
-SCOLON               |	 
+SCOLON               |	 ;
 Type                 |	 boolean
 Id                   |	 c
-Assign               |	 
+Assign               |	 =
 Integer              |	 22
 ArithmeticOperator   |	 *
 Integer              |	 3
-SCOLON               |	 
+SCOLON               |	 ;
 Type                 |	 string
 Id                   |	 e
-Assign               |	 
+Assign               |	 =
 Integer              |	 -5
 ArithmeticOperator   |	 -
 Integer              |	 -3
-SCOLON               |	 
-If                   |	 
-LPAREN               |	 
+SCOLON               |	 ;
+Keyword              |	 if
+LPAREN               |	 (
 Bool                 |	 true
-RPAREN               |	 
-LBRACE               |	 
+RPAREN               |	 )
+LBRACE               |	 {
 Id                   |	 f
-Assign               |	 
+Assign               |	 =
 Integer              |	 7
 ArithmeticOperator   |	 -
 Integer              |	 -8
-SCOLON               |	 
-Return               |	 
-SCOLON               |	 
-RBRACE               |	 
-Else                 |	 
-LBRACE               |	 
-While                |	 
-LPAREN               |	 
+SCOLON               |	 ;
+Keyword              |	 return
+SCOLON               |	 ;
+RBRACE               |	 }
+Keyword              |	 else
+LBRACE               |	 {
+Keyword              |	 while
+LPAREN               |	 (
 Id                   |	 a
 Compare              |	 >
 Integer              |	 -5
-RPAREN               |	 
-LBRACE               |	 
-RBRACE               |	 
-RBRACE               |	 
+RPAREN               |	 )
+LBRACE               |	 {
+RBRACE               |	 }
+RBRACE               |	 }
 Type                 |	 int
 Id                   |	 k
-Assign               |	 
+Assign               |	 =
 Integer              |	 7
 ArithmeticOperator   |	 -
 Integer              |	 -8
-LPAREN               |	 
+LPAREN               |	 (
 Integer              |	 9
-RPAREN               |	 
+RPAREN               |	 )
 ArithmeticOperator   |	 -
-LPAREN               |	 
-ArithmeticOperator   |	 -
-Integer              |	 5
-RPAREN               |	 
+LPAREN               |	 (
+Integer              |	 -5
+RPAREN               |	 )
 Char                 |	 'a'
-Char                 |	 '\''
-Char                 |	 '\n'
 Char                 |	 ' '
 Char                 |	 '&'
 String               |	 "#@(d2sm^,z."
 Type                 |	 int
 Id                   |	 test
-Assign               |	 
+Assign               |	 =
 Integer              |	 3
 ArithmeticOperator   |	 -
 Integer              |	 5
-SCOLON               |	 
+SCOLON               |	 ;
 Type                 |	 int
 Id                   |	 test2
-Assign               |	 
+Assign               |	 =
 Integer              |	 3
 ArithmeticOperator   |	 -
 Integer              |	 -5
-SCOLON               |	 
+SCOLON               |	 ;
+
 
 ```
 
