@@ -84,13 +84,11 @@ def report_error(state,lexeme,line_num) -> None:
         raise Exception("Line[{}] Double quote is not Closed. \nLexeme : {} ".format(line_num,lexeme))
     if(state == 31):
         raise Exception("Line[{}] Only 1 symbol is permitted in single quote. \nLexeme : {}".format(line_num,lexeme))
-    if(state == 33):
-        raise Exception("Line[{}] Double quote is not Closed. \nLexeme : {} ".format(line_num,lexeme))
-    if(state == 35):
+    if(state == 34):
         raise Exception("Line[{}] Blank is not permitted in Single quote. \nLexeme : {} ".format(line_num,lexeme))
-    if(state == 36):
+    if(state == 35):
         raise Exception("Line[{}] Integer Start with 0 is not permitted. \nLexeme : {}".format(line_num,lexeme))
-    if(state == 37):
+    if(state == 36):
         raise Exception("Line[{}] Invalid Input. \nLexeme : {} ".format(line_num,lexeme))
     
 

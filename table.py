@@ -25,7 +25,7 @@ Transition_table = {
          '0' : 23,
          'NZDigit' : 24,
          'Letter' : 25,
-         'Alphabet' : 37
+         'Alphabet' : 36
         },
     1 : {},
     2 : {
@@ -56,11 +56,12 @@ Transition_table = {
     19 : {},
     
     20 : {
-        '\'' : 35,
+        '\'' : 34,
         'Alphabet' : 31
     },
     21 : {
-        'Alphabet' : 33
+        '"' : 33,
+        'Alphabet' : 21
     },
     22 : {
         '_' : 22,
@@ -69,8 +70,8 @@ Transition_table = {
         'Letter' : 22
     },
     23 : {
-        '0' : 36,
-        'NZDigit' : 36
+        '0' : 35,
+        'NZDigit' : 35
     },
     24 : {
         '0' : 24,
@@ -94,17 +95,13 @@ Transition_table = {
         '\'' : 32
     },
     32 : {},
-    33 : {
-        '"' : 34,
-        'Alphabet' : 33
-    },
+    33 : {},
     34 : {},
-    35 : {},
-    36 : {
-        '0' : 36,
-        'NZDigit' : 36
+    35 : {
+        '0' : 35,
+        'NZDigit' : 35
     },
-    37 : {}
+    36 : {}
 }
 
 State_table = [
@@ -113,39 +110,38 @@ State_table = [
     'ArithmeticOperator',  # -
     'ArithmeticOperator',  # *
     'ArithmeticOperator',  # /
-    'Assign',               # =
-    'Compare',     # <
-    'Compare',     # >
-    'ERR',                  # single !
-    'LPAREN',               # (
-    'RPAREN',               # )
-    'LBRACE',               # {
-    'RBRACE',               # }
-    'LBRAKET',              # [
-    'RBRAKET',              # ]
-    'SCOLON',               # ;
-    'COMMA',                # ,
+    'Assign',              # =
+    'Compare',             # <
+    'Compare',             # >
+    'ERR',                 # single !
+    'LPAREN',              # (
+    'RPAREN',              # )
+    'LBRACE',              # {
+    'RBRACE',              # }
+    'LBRAKET',             # [
+    'RBRAKET',             # ]
+    'SCOLON',              # ;
+    'COMMA',               # ,
     'WHITESPACE',          # \t
     'WHITESPACE',          # \n
     'WHITESPACE',          # 0x20
-    'ERR',                  # finished with single quote
-    'ERR',                  # finished with double quote
-    'Id',                   # _(digit|letter|_)*
-    'Integer',              # 0
-    'Integer',              # [1-9][0-9]*
-    'Id',                   # letter(digit|letter|_)*
-    'Integer',              # -[1-9][0-9]*
-    'Compare',     # ==
-    'Compare',     # =<
-    'Compare',     # =>
-    'Compare',     # !=
-    'ERR',                  # Only Single symbol in ''
-    'Char',                 # 'Alphabet'
-    'ERR',                  # " is not closed
-    'String',               # "(Alphabet)*"
-    'ERR',                  # '' is not allowed.need exactly one symbol in ''
-    'ERR',                  # 00,001,0123 is not allowed
-    'ERR'                   # Unavailabe Input Character
+    'ERR',                 # finished with single quote
+    'ERR',                 # finished with double quote
+    'Id',                  # _(digit|letter|_)*
+    'Integer',             # 0
+    'Integer',             # [1-9][0-9]*
+    'Id',                  # letter(digit|letter|_)*
+    'Integer',             # -[1-9][0-9]*
+    'Compare',             # ==
+    'Compare',             # =<
+    'Compare',             # =>
+    'Compare',             # !=
+    'ERR',                 # Only Single symbol in ''
+    'Char',                # 'Alphabet'
+    'String',              # "(Alphabet)*"
+    'ERR',                 # '' is not allowed.need exactly one symbol in ''
+    'ERR',                 # 00,001,0123 is not allowed
+    'ERR'                  # Unavailabe Input Character
 ]
 
 
