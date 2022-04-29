@@ -1,34 +1,6 @@
 import argparse
-from sre_parse import WHITESPACE
 import string
 from table import *
-
-'''
-[Regular Expression]
-MERGED = Type | Integer | Char | Literal | Bool | Id | Keyword | Operator | SpecialSymbol | WhiteSpace
-
-NZeroDigit = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
-Digit =  0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 
-Letter = a | b | c ... | y | z | A | B ... | Y | Z
-
-Alphabet = Letter | Digit | ! | ' | " | # | $ | % | & | ~ | ( | ) | * | + | , | - | . | / | : | ; | < | = | > | ? | @ | [ | } | ] | ^ | _ | ` | { | | | \t | \n | \r
-
-
-Arithmetic = + | - | * | /
-Assign = =
-Compare = < | > | == | != | <= | >=
-
-Type = int | char | boolean | string
-Integer = 0 | -NZeroDigit(Digit)* | NZeroDigit(Digit)*
-Char = 'Alphabet'
-Literal = "(Alphabet)*"
-Bool = true | false
-Id = (_|Letter)(Letter|Digit|_)*
-KeyWord = if | else | while | class | return
-Operator = Arithmetic | Assign | Compare
-SpecialSymbol = ; | ( | ) | { | } | [ | ] | ,
-WhiteSpace = [blank] | \t | \n  
-'''
 
 # Define
 Digit = [x for x in string.digits] # [0-9]
@@ -112,7 +84,7 @@ def lexical(text) -> list:
 
             token = State_table[state]
 
-            if token == 'Id':
+            if token == 'Id':   # if token is 'Id' then check whether it is in Type,Keyword,Bool 
                 if lexeme in Type:
                     token = 'Type'
                 if lexeme in Keyword:
@@ -120,10 +92,10 @@ def lexical(text) -> list:
                 if lexeme in Bool:
                     token = 'Bool'
                     
-            if token != 'WHITESPACE':
+            if token != 'WHITESPACE': # WHITESPACE Token is ommitted in result. i
                 token_result.append({'token' : token ,'lexeme' : lexeme})
 
-            if token == 'WHITESPACE' and lexeme == '\n':
+            if token == 'WHITESPACE' and lexeme == '\n':    # for report error save line_num
                 line_num += 1
 
             state = 0
