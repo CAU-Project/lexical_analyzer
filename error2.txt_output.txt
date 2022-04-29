@@ -1,8 +1,0 @@
-Type                 |	 int
-Id                   |	 a
-Assign               |	 =
-ArithmeticOperator   |	 -
-Integer              |	 0
-ArithmeticOperator   |	 +
-Integer              |	 1
-SCOLON               |	 ;
