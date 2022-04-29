@@ -40,12 +40,13 @@ Draw NFA With Regular Expression
 
 ![NFA](https://user-images.githubusercontent.com/33647663/162559648-feedacb0-a2de-4776-9fca-70799ec5a5ec.png)
 
+---
+
 ![NFA drawio](https://user-images.githubusercontent.com/33647663/162576571-467b6261-00bd-41ba-a764-cc08bdaf675a.png)
 
 
 # 3. DFA & Table
 Translate the NFA to DFA in form of Table
-
 
 
 ## Transition Table
@@ -95,6 +96,11 @@ STRING|"(alphabet)+"|34|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 !ERR|00,001,0123123 ….|36|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|36|36|-|-|-
 !ERR|alphabet|37|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 
+## DFA
+
+![DFA drawio](https://user-images.githubusercontent.com/33647663/165884138-71a6920e-e8d3-4f68-baa0-81bae79920db.png)
+
+
  
 # Implementation
 ## Table.py
@@ -105,6 +111,7 @@ Include **Transition_table** and **State_table**
 ## lex.py
 ### def lexical()
 Read character from file and Tokenizing until EOF.
+(Detailed code is omitted.)
 
 ```python
 def lexical(text):
