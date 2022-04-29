@@ -57,7 +57,7 @@ Translate the NFA to DFA in form of Table
 
 Token|lexeme|state|+|-|*|/|=|<|>|!|(|)|{|}|[|]|;|,|\t|\n|blank|'|"|_|0|NZeroDigit|Letter|Alphabet|$
 --|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--
-|||0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|37|-
+|||0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|36|-
 Arithmetic operator|+|1|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 Arithmetic operator|-|2|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|26|-|-|-
 Arithmetic operator|*|3|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
@@ -77,10 +77,10 @@ COMMA|,|16|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 WHITESPACE|\t|17|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 WHITESPACE|\n|18|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 WHITESPACE|blank|19|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
-!ERR|'|20|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|35|-|-|-|-|-|31|-
-!ERR|"|21|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|33|-
+!ERR|'|20|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|34|-|-|-|-|-|31|-
+!ERR|"|21|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|33|-|-|-|-|21|-
 ID|_(_|digit|letter)*|22|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|22|22|22|22|-|-
-INT|0|23|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|36|36|-|-|-
+INT|0|23|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|35|35|-|-|-
 INT|[1-9][0-9]*|24|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|24|24|-|-|-
 ID|letter(_|digit|letter)*|25|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|25|25|25|25|-|-
 INT|-[1-9][0-9]*|26|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|26|26|-|-|-
@@ -90,17 +90,15 @@ Compare Operator|=>|29|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 Compare Operator|!=|30|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 !ERR|'alphabet|31|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|32|-|-|-|-|-|-|-
 CHAR|'alphabet'|32|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
-!ERR|"(alphabet)+|33|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|34|-|-|-|-|33|-
-STRING|"(alphabet)+"|34|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
-!ERR|''|35|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
-!ERR|00,001,0123123 ….|36|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|36|36|-|-|-
-!ERR|alphabet|37|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
+STRING|"(alphabet)+"|33|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
+!ERR|''|34|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
+!ERR|00,001,0123123 ….|35|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|35|35|-|-|-
+!ERR|alphabet|36|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 
 ## DFA
-**Note** 
 - Note that if DFA Finished in non-terminal state then it is error.
-- Each Non terminal State has different Error Message. 
-- ex) state 20 : accept single quote, but closed single quote is needed.
+- Each Non terminal State has different Error Message.(state 8,20,21,31,34,35,36)
+- ex) state 20 : single quote is not closed.
 
 ![DFA drawio](https://user-images.githubusercontent.com/33647663/165884138-71a6920e-e8d3-4f68-baa0-81bae79920db.png)
 
@@ -109,8 +107,8 @@ STRING|"(alphabet)+"|34|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-
 # Implementation
 ## Table.py
 Include **Transition_table** and **State_table**
-- **Transition_table** : determine next state based on Current State and input symbol. ex) current state : 0 , input symbol : '+' then next_state will be 1. 
-- **State_table** : Store Information about current state. if current state is 1, then this state is Arithmetic Operator
+- **Transition_table** : determine next state based on Current State and input symbol. ex) current state : 0 , input symbol : '+' then next_state will be 1. (Based on DFA Graph)
+- **State_table** : Store Information about current state. if current state is 1, then this state is **Arithmetic Operator**
 
 ## lex.py
 ### def lexical()
@@ -156,13 +154,11 @@ def report_error(state,lexeme,line_num) -> None:
         raise Exception("Line[{}] Double quote is not Closed. \nLexeme : {} ".format(line_num,lexeme))
     if(state == 31):
         raise Exception("Line[{}] Only 1 symbol is permitted in single quote. \nLexeme : {}".format(line_num,lexeme))
-    if(state == 33):
-        raise Exception("Line[{}] Double quote is not Closed. \nLexeme : {} ".format(line_num,lexeme))
-    if(state == 35):
+    if(state == 34):
         raise Exception("Line[{}] Blank is not permitted in Single quote. \nLexeme : {} ".format(line_num,lexeme))
-    if(state == 36):
+    if(state == 35):
         raise Exception("Line[{}] Integer Start with 0 is not permitted. \nLexeme : {}".format(line_num,lexeme))
-    if(state == 37):
+    if(state == 36):
         raise Exception("Line[{}] Invalid Input. \nLexeme : {} ".format(line_num,lexeme))
     
 ```
@@ -175,8 +171,9 @@ def report_error(state,lexeme,line_num) -> None:
 - My Python : Python 3.5.3
 
 ### Usage:
+**[!] Test Code should be in the test_code directory**
 1. Make Test code in **test_code** Directory which satisfy our Lexical Specification
-2. start lex.py with filename in test_code directory
+2. run lex.py with filename in test_code directory
 - I have made some test code in test_code directory
 ```sh
 $python3 lex.py test.txt
@@ -232,7 +229,7 @@ int test2 = 3 - -5;
 
 ```
 
-### Result Token Info
+### test.txt_output.txt (Result Token Info)
 
 ```
 Type                 |	 int
