@@ -35,11 +35,13 @@ Transition_table = {
     4 : {},
     5 : {
         '=' : 27,
-        '<' : 28,
-        '>' : 29
     },
-    6 : {},
-    7 : {},
+    6 : {
+        '=' : 28,
+    },
+    7 : {
+        '=' : 29,
+    },
     8 : {
         '=' : 30
     },
@@ -133,8 +135,8 @@ State_table = [
     'Id',                  # letter(digit|letter|_)*
     'Integer',             # -[1-9][0-9]*
     'Compare',             # ==
-    'Compare',             # =<
-    'Compare',             # =>
+    'Compare',             # <=
+    'Compare',             # >=
     'Compare',             # !=
     'ERR',                 # Only Single symbol in ''
     'Char',                # 'Alphabet'
